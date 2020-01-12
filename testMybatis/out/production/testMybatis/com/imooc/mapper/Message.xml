@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2009-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 命名空间，为了不同xml文件中的SQL语句id不相同  -->
+<mapper namespace="User">
+  <!--  type: 对应的类名 ； id: 在resultMap中唯，可与SQL语句的id重名 -->
+  <resultMap type="Message" id="MessageResult">
+    <!--  id:表示主键，其它都是result；column:数据库列名；property:类成员名 ; jdbcType: java.sql.type -->
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="COMMAND" jdbcType="VARCHAR" property="command"/>
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+    <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
+  </resultMap>
+  <!--  id: sql语句的名称，要求唯一; resultMap: 根据id映射resultMap，将结果赋值给对应的类成员  -->
+    <select id="queryMessageList" parameterType="long" resultMap="UserResult">
+      SELECT * FROM user WHERE id = #{id:INTEGER}
+    </select>
+
+  </mapper>
